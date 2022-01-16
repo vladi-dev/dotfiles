@@ -1,2 +1,4 @@
 export PATH="$PATH:~/Downloads/WebStorm-212.5457.55/bin"
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+
+alias cat="bat"
