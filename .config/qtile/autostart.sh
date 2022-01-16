@@ -9,3 +9,4 @@ runCommand() {
 
 runCommand feh --bg-scale ~/Pictures/Wallpapers/wall.png
 runCommand conky
+runCommand dunst
