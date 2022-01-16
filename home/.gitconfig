@@ -2,3 +2,4 @@
 	defaultBranch = main
 [core]
 	editor = vim
+	excludesfile = /home/me/.gitignore_global
