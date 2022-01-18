@@ -82,6 +82,11 @@ keys = [
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "r", lazy.spawncmd(),
         desc="Spawn a command using a prompt widget"),
+
+    # User hotkeys
+    Key([], "XF86MonBrightnessUp", lazy.spawn("light -A 7"), desc="Increase brightness"),
+    Key([], "XF86MonBrightnessDown", lazy.spawn("light -U 7"), desc="Decrease brightness"),
+    Key([mod], "Print", lazy.spawn("maim -o -s -t 1 | xclip -selection clipboard -t image/png", shell=True), desc="Clip screen"),
 ]
 
 groups = [Group(i) for i in "1234567890"]
