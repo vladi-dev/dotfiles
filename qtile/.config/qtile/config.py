@@ -84,8 +84,13 @@ keys = [
         desc="Spawn a command using a prompt widget"),
 
     # User hotkeys
+    Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer set Master 5%+"), desc="Increase volume"),
+    Key([], "XF86AudioLowerVolume", lazy.spawn("amixer set Master 5%-"), desc="Decrease volume"),
+    Key([], "XF86AudioMute", lazy.spawn("amixer set Master toggle"), desc="Toggle mute"),
+
     Key([], "XF86MonBrightnessUp", lazy.spawn("light -A 7"), desc="Increase brightness"),
     Key([], "XF86MonBrightnessDown", lazy.spawn("light -U 7"), desc="Decrease brightness"),
+
     Key([mod], "Print", lazy.spawn("maim -o -s -t 1 | xclip -selection clipboard -t image/png", shell=True), desc="Clip screen"),
 ]
 
@@ -136,7 +141,7 @@ screens = [
                 widget.CurrentLayout(),
                 widget.GroupBox(),
                 widget.Prompt(),
-                widget.WindowName(),
+                widget.TaskList(padding=8),
                 widget.Chord(
                     chords_colors={
                         'launch': ("#ff0000", "#ffffff"),
@@ -144,7 +149,9 @@ screens = [
                     name_transform=lambda name: name.upper(),
                 ),
                 widget.Systray(),
-                widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
+                widget.Clock(format='%a %I%M %p %Y/%m/%d ', padding=4),
+                widget.Volume(fmt='Volume: {}', padding=4),
+                widget.Battery(format='Battery: {percent:2.0%}', padding=4),
             ],
             40,
         ),
