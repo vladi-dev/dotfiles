@@ -177,9 +177,9 @@ floating_layout = layout.Floating(float_rules=[
     Match(wm_class='makebranch'),  # gitk
     Match(wm_class='maketag'),  # gitk
     Match(wm_class='ssh-askpass'),  # ssh-askpass
+    Match(title='win0'),  # Jetbrains
     Match(title='branchdialog'),  # gitk
     Match(title='pinentry'),  # GPG key password entry
-    Match(title='jetbrains-webstorm'),  # GPG key password entry
 ])
 auto_fullscreen = True
 focus_on_window_activation = "smart"
