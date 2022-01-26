@@ -79,9 +79,7 @@ keys = [
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
 
     Key([mod, "shift"], "r", lazy.restart(), desc="Restart Qtile"),
-    Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([mod], "r", lazy.spawncmd(),
-        desc="Spawn a command using a prompt widget"),
+    Key([mod], "r", lazy.spawn("rofi -show run"), desc="Rofi"),
 
     # User hotkeys
     Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer set Master 5%+"), desc="Increase volume"),
@@ -181,6 +179,7 @@ floating_layout = layout.Floating(float_rules=[
     Match(wm_class='ssh-askpass'),  # ssh-askpass
     Match(title='branchdialog'),  # gitk
     Match(title='pinentry'),  # GPG key password entry
+    Match(title='jetbrains-webstorm'),  # GPG key password entry
 ])
 auto_fullscreen = True
 focus_on_window_activation = "smart"
