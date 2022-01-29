@@ -3,6 +3,7 @@
 [core]
 	editor = vim
 	excludesfile = /home/me/.global_gitignore
-	username = VladRoff-PP
-	email = 85898414+VladRoff-PP@users.noreply.github.com
 	sshCommand = ssh -i ~/.ssh/id_vlad_roff_produce_pay
+[user]
+	email = 85898414+VladRoff-PP@users.noreply.github.com
+	name = VladRoff-PP
