@@ -77,6 +77,7 @@ keys = [
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
+    Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown"),
 
     Key([mod, "shift"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod], "r", lazy.spawn("rofi -show run"), desc="Rofi"),
@@ -127,8 +128,8 @@ layouts = [
 
 widget_defaults = dict(
     font='sans',
-    fontsize=18,
-    padding=16,
+    fontsize=26,
+    padding=10,
 )
 extension_defaults = widget_defaults.copy()
 
@@ -136,7 +137,7 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.CurrentLayout(),
+                #widget.CurrentLayout(),
                 widget.GroupBox(),
                 widget.Prompt(),
                 widget.TaskList(padding=8),
@@ -151,7 +152,7 @@ screens = [
                 widget.Volume(fmt='Volume: {}', padding=4),
                 widget.Battery(format='Battery: {percent:2.0%}', padding=4),
             ],
-            40,
+            54,
         ),
     ),
 ]

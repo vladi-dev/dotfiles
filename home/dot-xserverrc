@@ -1,1 +1,1 @@
-exec Xorg :0 -dpi 144 -ardelay 200 -arinterval 30 vt01
+exec Xorg :0 -dpi 192 -ardelay 200 -arinterval 30 vt01
