@@ -80,7 +80,7 @@ keys = [
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown"),
 
     Key([mod, "shift"], "r", lazy.restart(), desc="Restart Qtile"),
-    Key([mod], "r", lazy.spawn("rofi -show run"), desc="Rofi"),
+    Key([mod], "r", lazy.spawn("sh -c ~/.config/rofi/bin/launcher_colorful"), desc="Rofi"),
 
     # User hotkeys
     Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer set Master 5%+"), desc="Increase volume"),
