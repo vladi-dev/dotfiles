@@ -100,6 +100,10 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
+eval "$(direnv hook zsh)"
 
 source ~/.profile
+source /usr/share/nvm/init-nvm.sh
 
+# add Pulumi to the PATH
+export PATH=$PATH:$HOME/.pulumi/bin
