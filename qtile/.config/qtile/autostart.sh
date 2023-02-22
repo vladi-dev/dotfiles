@@ -7,6 +7,6 @@ runCommand() {
     ("$@" > /tmp/"$1.log" 2>&1) &
 }
 
-runCommand feh --bg-scale ~/.config/qtile/wall.jpg
+runCommand feh --bg-scale ~/.config/qtile/wall3.jpg
 runCommand dunst
-runCommand picom
+#runCommand picom

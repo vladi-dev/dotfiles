@@ -26,15 +26,19 @@
 
 import os
 import subprocess
+import socket
 
 from typing import List  # noqa: F401
 
-from libqtile import bar, layout, widget, hook
+from libqtile import bar, layout, widget, hook, qtile
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 
 mod = "mod4"
+alt = "mod1"
 terminal = "kitty"
+prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
+
 
 keys = [
     # Switch between windows
@@ -80,7 +84,7 @@ keys = [
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown"),
 
     Key([mod, "shift"], "r", lazy.restart(), desc="Restart Qtile"),
-    Key([mod], "r", lazy.spawn("sh -c ~/.config/rofi/bin/launcher_colorful"), desc="Rofi"),
+    Key([mod], "r", lazy.spawn("rofi -show run"), desc="Rofi"),
 
     # User hotkeys
     Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer set Master 5%+"), desc="Increase volume"),
@@ -91,6 +95,11 @@ keys = [
     Key([], "XF86MonBrightnessDown", lazy.spawn("light -U 7"), desc="Decrease brightness"),
 
     Key([mod], "Print", lazy.spawn("maim -o -s -t 1 | xclip -selection clipboard -t image/png", shell=True), desc="Clip screen"),
+    Key([mod, "control"], "Print", lazy.spawn("maim -o -s -t 1 ~/screenshot.png", shell=True), desc="Clip screen"),
+
+    Key([mod, alt], "l", lazy.spawn("xsecurelock"), desc="Lock screen"),
+
+    Key([mod], "f", lazy.window.toggle_floating()),
 ]
 
 groups = [Group(i) for i in "1234567890"]
@@ -110,10 +119,39 @@ for i in groups:
         #     desc="move focused window to group {}".format(i.name)),
     ])
 
+colors = [
+    ["#242831", "#242831"],  # 0 background
+    ["#f8f8f2", "#f8f8f2"],  # 1 foreground
+    ["#3b4252", "#3b4252"],  # 2 background lighter
+    ["#bf616a", "#bf616a"],  # 3 red
+    ["#a3be8c", "#a3be8c"],  # 4 green
+    ["#ebcb8b", "#ebcb8b"],  # 5 yellow
+    ["#81a1c1", "#81a1c1"],  # 6 blue
+    ["#b48ead", "#b48ead"],  # 7 magenta
+    ["#88c0d0", "#88c0d0"],  # 8 cyan
+    ["#4c566a", "#4c566a"],  # 9 grey
+    ["#e5e9f0", "#e5e9f0"],  # 10 white
+    ["#d08770", "#d08770"],  # 11 orange
+    ["#8fbcbb", "#8fbcbb"],  # 12 super cyan
+    ["#5e81ac", "#5e81ac"],  # 13 super blue
+    ["#2e3440", "#2e3440"],  # 14 super dark background
+    ["#708090", "#708090"]   # 15 slate grey
+]
+
+layout_theme = {"border_width": 2,
+                "margin": 5,
+                "border_focus": colors[9],
+                "border_normal": colors[0]
+                }
 layouts = [
-    layout.MonadTall(border_focus='#efefee', border_normal='#001100', ratio=0.70, border_width=2, margin=8),
-    layout.Columns(border_focus_stack=['#d75f5f', '#8f3d3d'], border_width=4),
-    layout.Max(),
+    layout.MonadTall(ratio=0.7, **layout_theme),
+    layout.MonadTall(ratio=0.6, **layout_theme),
+    layout.Columns(**layout_theme),
+    #layout.MonadWide(ratio=0.7, **layout_theme),
+    layout.Max(**layout_theme),
+#     layout.MonadTall(border_focus='#efefee', border_normal='#001100', ratio=0.70, border_width=4, margin=8),
+#     layout.Columns(border_focus='#efefee', border_normal='#001100', border_width=4, margin=8),
+#     layout.Max(),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
@@ -126,21 +164,32 @@ layouts = [
     # layout.Zoomy(),
 ]
 
+# widget_defaults = dict(
+#     font='sans',
+#     fontsize=14,
+#    padding=3,
+# )
+
 widget_defaults = dict(
-    font='sans',
-    fontsize=26,
-    padding=10,
-)
+    # font='CozetteVector Bold',
+#     font='mononoki Nerd Font Bold',
+    font='Jetbrains Mono Nerd Font',
+    fontsize=14,
+#     padding=5,
+    foreground = colors[10],
+    background = colors[0]
+    )
+
 extension_defaults = widget_defaults.copy()
 
-screens = [
+_screens = [
     Screen(
         top=bar.Bar(
             [
                 #widget.CurrentLayout(),
-                widget.GroupBox(),
+                widget.GroupBox(highlight_method="box", highlight_color=["#d08770", "#000000"]),
                 widget.Prompt(),
-                widget.TaskList(padding=8),
+                widget.TaskList(padding=2),
                 widget.Chord(
                     chords_colors={
                         'launch': ("#ff0000", "#ffffff"),
@@ -152,9 +201,166 @@ screens = [
                 widget.Volume(fmt='Volume: {}', padding=4),
                 widget.Battery(format='Battery: {percent:2.0%}', padding=4),
             ],
-            54,
+            26,
         ),
     ),
+]
+
+screens = [
+  Screen(
+        top=bar.Bar(
+            [
+              widget.Sep(
+                       linewidth = 0,
+                       padding = 6,
+                       ),
+              widget.GroupBox(
+#                        fontsize = 21,
+                       margin_y = 3,
+                       margin_x = 0,
+                       padding_y = 5,
+                       padding_x = 3,
+                       borderwidth = 3,
+                       inactive = colors[2],
+                       active = colors[15],
+                       rounded = False,
+                       highlight_color = colors[1],
+                       highlight_method = "line",
+                       this_current_screen_border = colors[11],
+                       this_screen_border = colors[15],
+                       other_current_screen_border = colors[15],
+                       other_screen_border = colors[9],
+                       foreground = colors[15],
+                       background = colors[0]
+                       ),
+              widget.Sep(
+                       linewidth = 0,
+                       padding = 5,
+                       ),
+              widget.Prompt(
+                       prompt = prompt,
+                       padding = 6,
+                       ),
+              widget.Sep(
+                       linewidth = 0,
+                       padding = 5,
+                       ),
+              widget.TaskList(
+                       padding = 2,
+#                        fontsize = 10
+                       ),
+#               widget.Sep(
+#                        linewidth = 0,
+#                        padding = 5,
+#                        ),
+#               widget.TextBox(
+#                        text = "|",
+# #                        fontsize = 12,
+#                        foreground = colors[2],
+#                        ),
+              widget.Net(
+                      foreground = colors[3],
+                      interface = "wlan0",
+                      format = ' {down} ↓↑ {up}',
+                      padding = 5,
+                      ),
+#               widget.Sep(
+#                       linewidth = 0,
+#                       padding = 5,
+#                       ),
+#               widget.TextBox(
+#                       text = "|",
+# #                       fontsize = 12,
+#                       foreground = colors[2],
+#                       ),
+              widget.Memory(
+                      foreground = colors[4],
+                      format = ' {MemUsed: .0f}{mm}',
+                      mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' -e bpytop')},
+                      padding = 5
+                      ),
+#               widget.Sep(
+#                       linewidth = 0,
+#                       padding = 5,
+#                       ),
+#               widget.TextBox(
+#                       text = "|",
+# #                       fontsize = 12,
+#                       foreground = colors[2],
+#                       ),
+              widget.CPU(
+                      foreground = colors[5],
+                      padding = 5,
+                      mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' -e bpytop')},
+                      format = ' {load_percent}%',
+                      ),
+#               widget.Sep(
+#                       linewidth = 0,
+#                       padding = 5,
+#                       ),
+#               widget.TextBox(
+#                       text = "|",
+# #                       fontsize = 12,
+#                       foreground = colors[2],
+#                       ),
+              widget.Wttr(
+                      foreground = colors[6],
+                       padding = 5,
+                       location={'Dana Point': 'Dana Point'},
+                       format = ' %t',
+                       units = 'u'
+                       ),
+#               widget.Sep(
+#                        linewidth = 0,
+#                        padding = 5,
+#                        ),
+#               widget.TextBox(
+#                        text = "|",
+# #                        fontsize = 12,
+#                        foreground = colors[2],
+#                        ),
+              widget.Volume(
+                      fmt='奔 {}',
+                      foreground = colors[7],
+              ),
+#               widget.Sep(linewidth = 0, padding = 5,),
+#               widget.TextBox(text = "|", foreground = colors[2]),
+              widget.Battery(
+                foreground = colors[8],
+                charge_char='',
+                discharge_char='',
+                empty_char='',
+                full_char='',
+                show_short_text=False,
+                format='{char} {percent:2.0%} {hour:d}:{min:02d}'
+              ),
+#               widget.Sep(linewidth = 0, padding = 5,),
+#               widget.TextBox(text = "|", foreground = colors[2]),
+              widget.Clock(
+                        foreground = colors[9],
+                       format = " %m/%d/%y %H:%M ",
+                       mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' -e calcure')},
+                       ),
+#               widget.Sep(
+#                        linewidth = 0,
+#                        padding = 5,
+#                        ),
+#               widget.TextBox(
+#                        text = "|",
+# #                        fontsize = 12,
+#                        foreground = colors[2],
+#                        ),
+              widget.Systray(),
+              widget.CurrentLayoutIcon(
+                       custom_icon_paths = [os.path.expanduser("~/.config/qtile/icons")],
+                       padding = 5,
+                       scale = 0.7
+                       ),
+              widget.Sep(
+                       linewidth = 0,
+                       padding = 5,
+                       ),
+            ], 28, ), ),
 ]
 
 # Drag floating layouts.
@@ -200,7 +406,7 @@ auto_minimize = True
 # java that happens to be on java's whitelist.
 wmname = "LG3D"
 
-@hook.subscribe.startup
+@hook.subscribe.startup_once
 def autostart():
     home = os.path.expanduser('~/.config/qtile/autostart.sh')
     subprocess.call([home])
