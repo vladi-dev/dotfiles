@@ -1,4 +1,4 @@
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 
-#exec i3 --shmlog-size=26214400
+export MOZ_USE_XINPUT2=1
 exec qtile start

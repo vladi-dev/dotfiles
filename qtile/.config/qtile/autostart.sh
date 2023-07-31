@@ -9,4 +9,5 @@ runCommand() {
 
 runCommand feh --bg-scale ~/.config/qtile/wall3.jpg
 runCommand dunst
-#runCommand picom
+runCommand picom
+runCommand flameshot

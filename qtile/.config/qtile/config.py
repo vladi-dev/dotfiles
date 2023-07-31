@@ -87,14 +87,14 @@ keys = [
     Key([mod], "r", lazy.spawn("rofi -show run"), desc="Rofi"),
 
     # User hotkeys
-    Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer set Master 5%+"), desc="Increase volume"),
-    Key([], "XF86AudioLowerVolume", lazy.spawn("amixer set Master 5%-"), desc="Decrease volume"),
-    Key([], "XF86AudioMute", lazy.spawn("amixer set Master toggle"), desc="Toggle mute"),
+    Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer set -D pipewire Master 5%+"), desc="Increase volume"),
+    Key([], "XF86AudioLowerVolume", lazy.spawn("amixer set -D pipewire Master 5%-"), desc="Decrease volume"),
+    Key([], "XF86AudioMute", lazy.spawn("amixer set -D pipewire Master toggle"), desc="Toggle mute"),
 
     Key([], "XF86MonBrightnessUp", lazy.spawn("light -A 7"), desc="Increase brightness"),
     Key([], "XF86MonBrightnessDown", lazy.spawn("light -U 7"), desc="Decrease brightness"),
 
-    Key([mod], "Print", lazy.spawn("maim -o -s -t 1 | xclip -selection clipboard -t image/png", shell=True), desc="Clip screen"),
+    Key([mod], "Print", lazy.spawn("flameshot gui", shell=True), desc="Clip screen"),
     Key([mod, "control"], "Print", lazy.spawn("maim -o -s -t 1 ~/screenshot.png", shell=True), desc="Clip screen"),
 
     Key([mod, alt], "l", lazy.spawn("xsecurelock"), desc="Lock screen"),
@@ -322,6 +322,7 @@ screens = [
               widget.Volume(
                       fmt='奔 {}',
                       foreground = colors[7],
+                      device='pipewire',
               ),
 #               widget.Sep(linewidth = 0, padding = 5,),
 #               widget.TextBox(text = "|", foreground = colors[2]),
