@@ -11,3 +11,4 @@ runCommand feh --bg-scale ~/.config/qtile/wall3.jpg
 runCommand dunst
 runCommand picom
 runCommand flameshot
+runCommand CM_SELECTIONS="clipboard" clipmenud

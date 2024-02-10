@@ -2,7 +2,7 @@
 	defaultBranch = main
 [core]
 	editor = vim
-	excludesfile = /home/me/.global_gitignore
+	excludesFile = /home/me/.global_gitignore
 	sshCommand = ssh -i ~/.ssh/vladroff_producepay
 	autocrlf = input
 [user]

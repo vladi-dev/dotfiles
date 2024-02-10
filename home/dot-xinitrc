@@ -1,4 +1,5 @@
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 
 export MOZ_USE_XINPUT2=1
+export CM_SELECTIONS="clipboard"
 exec qtile start

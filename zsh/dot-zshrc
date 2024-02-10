@@ -107,3 +107,9 @@ source /usr/share/nvm/init-nvm.sh
 
 # add Pulumi to the PATH
 export PATH=$PATH:$HOME/.pulumi/bin:$HOME/.local/bin
+
+
+# Keep
+fpath=($HOME/.zsh $fpath)
+autoload -Uz compinit && compinit
+

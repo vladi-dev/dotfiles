@@ -85,6 +85,7 @@ keys = [
 
     Key([mod, "shift"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod], "r", lazy.spawn("rofi -show run"), desc="Rofi"),
+    Key([mod], "v", lazy.spawn("clipmenu"), desc="Clipboard Manager"),
 
     # User hotkeys
     Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer set -D pipewire Master 5%+"), desc="Increase volume"),
@@ -392,6 +393,7 @@ floating_layout = layout.Floating(float_rules=[
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 reconfigure_screens = True
+follow_mouse_focus = False
 
 # If things like steam games want to auto-minimize themselves when losing
 # focus, should we respect this or not?
